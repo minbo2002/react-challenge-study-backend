@@ -1,6 +1,8 @@
 package com.example.reactchallengestudybackend.domain.item.entity;
 
 import com.example.reactchallengestudybackend.domain.base.BaseTimeEntity;
+import com.example.reactchallengestudybackend.domain.item.dto.request.ItemCreateRequest;
+import com.example.reactchallengestudybackend.domain.item.dto.request.ItemUpdateRequest;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -35,7 +37,6 @@ public class Item extends BaseTimeEntity {
     @Column(name = "item_status", length = 10)
     private ItemStatus itemStatus;
 
-
     @Builder
     public Item(Long id, String itemName, Integer price, Integer stockNumber, String content, ItemStatus itemStatus) {
         this.id = id;
@@ -45,4 +46,25 @@ public class Item extends BaseTimeEntity {
         this.content = content;
         this.itemStatus = itemStatus;
     }
+
+    static public Item mapToEntity(ItemCreateRequest request) {
+        return Item.builder()
+                .itemName(request.getItemName())
+                .price(request.getPrice())
+                .stockNumber(request.getStockNumber())
+                .content(request.getContent())
+                .itemStatus(ItemStatus.ON_SALE)
+                .build();
+    }
+
+    public void update(ItemUpdateRequest request) {
+        this.itemName = request.getItemName();
+        this.price = request.getPrice();
+        this.stockNumber = request.getStockNumber();
+        this.content = request.getContent();
+        this.itemStatus = request.getItemStatus();
+    }
+
+
+
 }
