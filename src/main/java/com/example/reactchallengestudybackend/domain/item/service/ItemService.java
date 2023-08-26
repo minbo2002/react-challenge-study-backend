@@ -7,6 +7,8 @@ import com.example.reactchallengestudybackend.domain.item.dto.response.ItemRespo
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ItemService {
 
     // 상품 생성
@@ -17,6 +19,9 @@ public interface ItemService {
 
     // 상품 전체조회 (페이징, 검색)
     Page<ItemResponse> getItemList(Pageable pageable, ItemSearchRequest request);
+
+    // 상품 전체조회 (List)
+    List<ItemResponse> getItems();
 
     // 상품 수정
     ItemResponse updateItem(Long itemId, ItemUpdateRequest request);

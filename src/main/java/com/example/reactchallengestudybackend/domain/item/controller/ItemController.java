@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -54,6 +56,16 @@ public class ItemController {
         Page<ItemResponse> itemList = itemService.getItemList(pageable, request);
 
         return ResponseEntity.ok(itemList);
+    }
+
+    // 상품 전체조회 list
+    @GetMapping("/api/items/list")
+    public ResponseEntity<List<ItemResponse>> getItems() {
+        log.info("ItemController getItems() run");
+
+        List<ItemResponse> itemlist = itemService.getItems();
+
+        return ResponseEntity.ok(itemlist);
     }
 
 

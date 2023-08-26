@@ -15,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -58,6 +61,19 @@ public class ItemServiceImpl implements ItemService{
         log.info("itemList: {}", itemList);
 
         return itemList.map(ItemResponse::mapToDto);
+    }
+
+    // 상품 전체조회 (List)
+    @Override
+    public List<ItemResponse> getItems() {
+
+        List<Item> items = itemRepository.findAll();
+
+        List<ItemResponse> itemList = items.stream()
+                .map(ItemResponse::mapToDto)
+                .collect(Collectors.toList());
+
+        return itemList;
     }
 
     // 상품 수정
