@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class ItemController {
         ItemResponse createItem = itemService.createItem(request);
         log.info("createItem: {}", createItem);
 
-        return new ResponseEntity<>(createItem, HttpStatus.CREATED);
+        return ResponseEntity.ok(createItem);
     }
 
     // 상품 단건 조회
@@ -49,7 +49,7 @@ public class ItemController {
     // 상품 전체조회 (페이징, 검색)
     @GetMapping("/api/items")
     public ResponseEntity<Page<ItemResponse>> getItemList(@PageableDefault(page = 0, size = 10) Pageable pageable,
-                                                   @Valid ItemSearchRequest request) {
+                                                          ItemSearchRequest request) {
         log.info("ItemController getItemList() run");
 
         Page<ItemResponse> itemList = itemService.getItemList(pageable, request);
@@ -71,13 +71,21 @@ public class ItemController {
     // 상품 수정
     @PatchMapping("/api/items/{itemId}")
     public ResponseEntity<ItemResponse> updateItem(@PathVariable Long itemId,
-                                            @Valid @RequestBody ItemUpdateRequest request) {
+                                                   @RequestBody ItemUpdateRequest request) {
         log.info("ItemController updateItem() run");
 
         ItemResponse updateItem = itemService.updateItem(itemId, request);
         log.info("updateItem: {}", updateItem);
 
-        return new ResponseEntity<>(updateItem, HttpStatus.OK);
+        return ResponseEntity.ok(updateItem);
+    }
+
+    // 상품 상태변경
+    @PatchMapping("/api/items/status/{itemId}")
+    public void updateItemStatus(@PathVariable Long itemId) {
+        log.info("ItemController updateItemStatus() run");
+
+        itemService.updateItemStatus(itemId);
     }
 
     // 상품 삭제

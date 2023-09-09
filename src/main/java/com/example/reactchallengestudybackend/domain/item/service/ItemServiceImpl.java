@@ -91,6 +91,18 @@ public class ItemServiceImpl implements ItemService{
         return ItemResponse.mapToDto(item);
     }
 
+    // 상품 상태수정
+    @Transactional
+    @Override
+    public void updateItemStatus(Long itemId) {
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ITEM));
+        log.info("findItem: {}", item);
+
+        item.updateStatus();
+    }
+
     // 상품 삭제
     @Transactional
     @Override

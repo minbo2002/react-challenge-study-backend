@@ -65,6 +65,12 @@ public class Item extends BaseTimeEntity {
         this.itemStatus = request.getItemStatus();
     }
 
-
+    public void updateStatus() {
+        if(this.itemStatus == ItemStatus.ON_SALE) {
+            this.itemStatus = ItemStatus.SOLD_OUT;
+        } else {
+            this.itemStatus = ItemStatus.ON_SALE;
+        }
+    }
 
 }
