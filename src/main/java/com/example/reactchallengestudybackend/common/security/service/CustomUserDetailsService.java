@@ -4,6 +4,7 @@ import com.example.reactchallengestudybackend.common.security.dto.PrincipalDetai
 import com.example.reactchallengestudybackend.domain.user.entity.User;
 import com.example.reactchallengestudybackend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -20,6 +22,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = userRepository.findByNameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + usernameOrEmail));
+
+        log.info("user: {}", user);
 
         return new PrincipalDetails(user);
     }

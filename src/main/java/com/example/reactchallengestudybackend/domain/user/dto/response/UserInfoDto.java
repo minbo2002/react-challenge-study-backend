@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @ToString
-public class UserInfoResponse {
+public class UserInfoDto {
 
     private String name;
     private String email;
@@ -18,15 +18,15 @@ public class UserInfoResponse {
     private Set<Role> roles;
 
     @Builder
-    public UserInfoResponse(String name, String email, User.RoleType role, Set<Role> roles) {
+    public UserInfoDto(String name, String email, User.RoleType role, Set<Role> roles) {
         this.name = name;
         this.email = email;
         this.role = role;
         this.roles = roles;
     }
 
-    public static UserInfoResponse from(User user) {
-        return UserInfoResponse.builder()
+    public static UserInfoDto from(User user) {
+        return UserInfoDto.builder()
                 .name(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole())

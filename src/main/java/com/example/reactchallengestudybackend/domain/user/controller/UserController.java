@@ -6,9 +6,9 @@ import com.example.reactchallengestudybackend.common.security.jwt.JwtUtil;
 import com.example.reactchallengestudybackend.common.security.jwt.dto.JwtAuthResponseDto;
 import com.example.reactchallengestudybackend.common.security.jwt.entity.Token;
 import com.example.reactchallengestudybackend.common.security.jwt.service.JwtService;
-import com.example.reactchallengestudybackend.domain.user.dto.request.LoginRequest;
-import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpRequest;
-import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoResponse;
+import com.example.reactchallengestudybackend.domain.user.dto.request.LoginDto;
+import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpDto;
+import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoDto;
 import com.example.reactchallengestudybackend.domain.user.entity.User;
 import com.example.reactchallengestudybackend.domain.user.repository.UserRepository;
 import com.example.reactchallengestudybackend.domain.user.service.UserService;
@@ -42,7 +42,7 @@ public class UserController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(
-            @Valid @RequestBody SignUpRequest signUpDto
+            @Valid @RequestBody SignUpDto signUpDto
     ) {
         log.info("signUpDto: {}", signUpDto);
         userService.registerUser(signUpDto);
@@ -52,7 +52,7 @@ public class UserController {
     // 로그인 (토큰발급)
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(
-            @Valid @RequestBody LoginRequest loginDto,
+            @Valid @RequestBody LoginDto loginDto,
             HttpServletResponse response
     ) {
         User user = userRepository.findByEmail(loginDto.getEmail())
@@ -116,11 +116,10 @@ public class UserController {
 
     // 유저정보 반환
     @GetMapping("/info")
-    public ResponseEntity<?> getUserInfo(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) {
+    public ResponseEntity<?> getUserInfo(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         log.info("principalDetails: {}", principalDetails);
-        UserInfoResponse userInfoDto = userService.getUser(principalDetails.getUser().getId());
+
+        UserInfoDto userInfoDto = userService.getUser(principalDetails.getUser().getId());
         return ResponseEntity.ok(userInfoDto);
     }
 }

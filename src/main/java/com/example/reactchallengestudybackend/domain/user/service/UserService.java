@@ -1,11 +1,11 @@
 package com.example.reactchallengestudybackend.domain.user.service;
 
-import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpRequest;
-import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoResponse;
+import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpDto;
+import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoDto;
 
 public interface UserService {
 
-    void registerUser(SignUpRequest signUpDto);
+    void registerUser(SignUpDto signUpDto);
 
-    UserInfoResponse getUser(Long userId);
+    UserInfoDto getUser(Long userId);
 }

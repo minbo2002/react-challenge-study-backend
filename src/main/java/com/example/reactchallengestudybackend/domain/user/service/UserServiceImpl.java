@@ -2,8 +2,8 @@ package com.example.reactchallengestudybackend.domain.user.service;
 
 import com.example.reactchallengestudybackend.common.exception.CustomException;
 import com.example.reactchallengestudybackend.common.exception.ErrorCode;
-import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpRequest;
-import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoResponse;
+import com.example.reactchallengestudybackend.domain.user.dto.request.SignUpDto;
+import com.example.reactchallengestudybackend.domain.user.dto.response.UserInfoDto;
 import com.example.reactchallengestudybackend.domain.user.entity.Role;
 import com.example.reactchallengestudybackend.domain.user.entity.User;
 import com.example.reactchallengestudybackend.domain.user.repository.RoleRepository;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     // 회원가입
     @Transactional
     @Override
-    public void registerUser(SignUpRequest signUpDto) {
+    public void registerUser(SignUpDto signUpDto) {
         log.info("userService registerUser run");
 
         if (userRepository.existsByEmail(signUpDto.getEmail())) {
@@ -54,12 +54,12 @@ public class UserServiceImpl implements UserService {
 
     // 회원정보 조회
     @Override
-    public UserInfoResponse getUser(Long userId) {
+    public UserInfoDto getUser(Long userId) {
         log.info("userService getUser run");
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
-        return UserInfoResponse.from(user);
+        return UserInfoDto.from(user);
     }
 }
