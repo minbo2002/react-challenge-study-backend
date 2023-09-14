@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.*;
-
 @Getter
 @ToString
 public class ItemResponse {

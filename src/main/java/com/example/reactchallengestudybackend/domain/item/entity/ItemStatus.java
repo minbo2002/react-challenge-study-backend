@@ -3,8 +3,7 @@ package com.example.reactchallengestudybackend.domain.item.entity;
 public enum ItemStatus {
 
     ON_SALE("판매중"),
-    SOLD_OUT("판매완료"),
-    HIDDEN("숨김");
+    SOLD_OUT("판매완료");
 
     private String title;
 

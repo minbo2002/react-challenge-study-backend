@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class ItemUpdateRequest {
 
     private String itemName;
@@ -15,12 +14,4 @@ public class ItemUpdateRequest {
     private String content;
     private ItemStatus itemStatus;
 
-    @Builder
-    public ItemUpdateRequest(String itemName, Integer price, Integer stockNumber, String content, ItemStatus itemStatus) {
-        this.itemName = itemName;
-        this.price = price;
-        this.stockNumber = stockNumber;
-        this.content = content;
-        this.itemStatus = itemStatus;
-    }
 }

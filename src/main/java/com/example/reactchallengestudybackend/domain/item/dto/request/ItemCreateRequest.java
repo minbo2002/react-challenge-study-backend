@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class ItemCreateRequest {
 
     @NotBlank(message = "상품 이름은 필수로 입력해야합니다.")
@@ -27,11 +26,4 @@ public class ItemCreateRequest {
     private ItemStatus itemStatus;
     */
 
-    @Builder
-    public ItemCreateRequest(String itemName, Integer price, Integer stockNumber, String content) {
-        this.itemName = itemName;
-        this.price = price;
-        this.stockNumber = stockNumber;
-        this.content = content;
-    }
 }

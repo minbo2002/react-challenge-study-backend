@@ -1,5 +1,6 @@
 package com.example.reactchallengestudybackend.domain.item.controller;
 
+import com.example.reactchallengestudybackend.common.security.dto.PrincipalDetails;
 import com.example.reactchallengestudybackend.domain.item.dto.request.ItemCreateRequest;
 import com.example.reactchallengestudybackend.domain.item.dto.request.ItemSearchRequest;
 import com.example.reactchallengestudybackend.domain.item.dto.request.ItemUpdateRequest;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -90,8 +92,9 @@ public class ItemController {
 
     // 상품 삭제
     @DeleteMapping("/api/items/{itemId}")
-    public void deleteItem(@PathVariable Long itemId) {
+    public void deleteItem(@PathVariable Long itemId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         log.info("ItemController deleteItem() run");
+        log.info("deleteItem principalDetails: {}", principalDetails);
 
         itemService.deleteItem(itemId);
     }
