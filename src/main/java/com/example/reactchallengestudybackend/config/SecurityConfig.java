@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/items/**").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/api/items/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/items/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/api/items/**").permitAll()
                 .antMatchers("/api/user/**", "/test/**").permitAll()
                 .anyRequest().authenticated();
 

@@ -63,7 +63,8 @@ public class UserController {
         }
 
         // get accessToken from jwtTokenProvider
-        String accessToken = jwtUtil.generateToken(new PrincipalDetails(user));
+        // String accessToken = jwtUtil.generateToken(new PrincipalDetails(user));  // user대신 new PrincipalDetails(user) 사용하면 에러 발생
+        String accessToken = jwtUtil.generateToken(user);
         String refreshToken = UUID.randomUUID().toString();
 
         // insert accessToken, refreshToken to db
@@ -100,7 +101,7 @@ public class UserController {
                 .map(user -> {
 
                     // get accessToken from jwtTokenProvider
-                    String accessToken = jwtUtil.generateToken(new PrincipalDetails(user));     // TODO : lazy 로딩 문제
+                    String accessToken = jwtUtil.generateToken(user);     // TODO : lazy 로딩 문제  (user대신 new PrincipalDetails(user) 사용하면 에러 발생)
                     String newRefreshToken = UUID.randomUUID().toString();
 
                     // insert accessToken, newRefreshToken to db and delete old refreshToken
